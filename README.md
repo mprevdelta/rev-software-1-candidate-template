@@ -1,1 +1,0 @@
-# rev-software-1-candidate-template
