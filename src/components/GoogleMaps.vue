@@ -1,14 +1,19 @@
 <template>
     <div ref="themap" id="themap">
-        height
+        <slot/>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { reactive, provide, inject, onMounted, ref } from 'vue'
 import { Loader } from '@googlemaps/js-api-loader';
 
 const themap = ref(null)
+
+
+const $store = inject('$store')
+
+const emit = defineEmits(['mapReady'])
 
 const props = defineProps({
     googleKey: {
@@ -54,8 +59,20 @@ mapOptions.mapId = '7b79128ec73ebb05'
 mapOptions.center = usa
 mapOptions.zoom = 5
 
+const data = reactive({
+    map: null
+})
+
 onMounted(() => {
     let map = new mapsApi.Map(themap.value, mapOptions)
+
+    data.map = map
+
+    emit('mapReady', map)
+
+    provide("$map", map)
+
+    $store.dispatch('setMaps', {map, api: mapsApi})
 })
 </script>
 

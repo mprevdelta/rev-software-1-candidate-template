@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject } from 'vue';
+import { computed, inject, provide, reactive } from 'vue';
 import useSWRV from 'swrv'
 
 import GoogleMaps from './components/GoogleMaps.vue'
@@ -19,6 +19,14 @@ const googleKey = computed(() => {
 
   return null
 })
+
+const data = reactive({
+  mapReady: false
+})
+
+function onMapReady(map) {
+  data.mapReady = true
+}
 </script>
 
 <template>
@@ -28,12 +36,12 @@ const googleKey = computed(() => {
     </template>
     <template v-else>
       <div class="pickup-requests">
-        <PickupRequests/>
+        <PickupRequests v-if="data.mapReady"/>
       </div>
       <div class="the-map">
         <Suspense>
           <template #default>
-            <GoogleMaps :googleKey="googleKey" />
+            <GoogleMaps :googleKey="googleKey" @mapReady="onMapReady" />
           </template>
           <template #fallback>
             Initializing Map...

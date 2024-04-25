@@ -2,6 +2,7 @@
 
 export default {
     state: {
+        maps: null, // Google Maps API instance in form {map, api} for convenience
         selectedDriver: null,
         selectedPickupRequest: null
     },
@@ -11,6 +12,9 @@ export default {
         },
         setSelectedPickupRequest(state, newVal) {
             state.selectedPickupRequest = newVal
+        },
+        setMaps(state, newVal) {
+            state.maps = newVal
         }
     },
     actions: {
@@ -19,6 +23,9 @@ export default {
         },
         setSelectedPickupRequest({ commit }, newVal) {
             commit('setSelectedPickupRequest', newVal)
+        },
+        setMaps({ commit }, newVal) {
+            commit('setMaps', newVal)
         }
     }
 }

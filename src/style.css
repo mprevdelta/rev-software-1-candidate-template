@@ -14,3 +14,27 @@ body {
   position: absolute;
   overflow: hidden;
 }
+
+:root {
+  --bg0: #303f4c;
+  --bg1: #405465;
+  --bg2: #98a8b6;
+  --fg0: white;
+  --fg1: #dddddd;
+  --fg2: grey;
+  --crazy: #cbff00;
+
+  --primary: #3aae49;
+  --primary-dark: #319044;
+  --primary-darker: #425565;
+
+  --primary-light: #dddddd;
+  --primary-lighter: white;
+
+  --secondary: #1d9ad6;
+  --secondary-dark: #13688f;
+  --secondary-darker: #211e16;
+
+  --secondary-light: #dddddd;
+  --secondary-lighter: white;
+}

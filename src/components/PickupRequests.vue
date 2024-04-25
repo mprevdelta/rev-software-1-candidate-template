@@ -14,21 +14,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="pr in (requestsWithMetadata || [])" :key="pr.id" @click="selectPickupRequest(pr)">
-                    <td>{{ pr.count }}</td>
-                    <td>{{ pr.ageInDays }}</td>
+                <tr v-for="o in (requestsWithMetadata || [])" :key="o.key" @click="selectPickupRequest(o.original)">
+                    <td>{{ o.count }}</td>
+                    <td>{{ o.ageInDays }}</td>
                     <!-- <td>
                         <button @click="deletePickupRequest(pr.id)">Delete</button>
                     </td> -->
                 </tr>
             </tbody>
         </table>
+
+        <Teleport to="#themap">
+            <PickupRequest v-for="pr in (requestsWithMetadata || [])" :key="pr.id""
+                :selected="pr.selected" :pickupRequest="pr.original" :ageInDays="pr.ageInDays" />
+        </Teleport>
     </template>
 </template>
 
 <script setup>
 import useSWRV from 'swrv'
 import { computed, inject } from 'vue';
+import PickupRequest from './maps/PickupRequest.vue';
 
 const $api = inject('$api')
 const $store = inject('$store')
@@ -39,7 +45,7 @@ const swrv = useSWRV('/api/pickup-requests', async (url) => {
 }, { revalidateOnFocus: false })
 
 const requestsWithMetadata = computed(() => {
-    if(! swrv.data.value) {
+    if (!swrv.data.value) {
         return null
     }
 
@@ -49,8 +55,10 @@ const requestsWithMetadata = computed(() => {
         const createdAt = new Date(pr.createdAt)
         const age = now - createdAt
         const ageInDays = Math.floor(age / (1000 * 60 * 60 * 24));
-        
+
         return {
+            key: pr.id,
+            selected: pr.id === $store.state.selectedPickupRequest?.id,
             original: pr,
             ageInDays,
             count: pr.count
