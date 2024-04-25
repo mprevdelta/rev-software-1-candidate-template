@@ -46,6 +46,7 @@ let mapOptions = {
     streetViewControl: false,
     fullscreenControl: false,
     mapTypeControl: false,
+    backgroundColor: '#303f4c',
     draggableCursor: 'auto'
 }
 let usa = { lat: 37.09024, lng: -95.712891 }
@@ -65,6 +66,10 @@ onMounted(() => {
     left: 0px;
     bottom: 0px;
     right: 0px;
-    background: red;
+    background: #303f4c;
+}
+
+.gm-style iframe+div {
+    border: 2px solid #cbff00 !important;
 }
 </style>

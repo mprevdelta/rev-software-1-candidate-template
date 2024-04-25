@@ -3,6 +3,7 @@ import { computed, inject } from 'vue';
 import useSWRV from 'swrv'
 
 import GoogleMaps from './components/GoogleMaps.vue'
+import PickupRequests from './components/PickupRequests.vue'
 
 const $api = inject('$api')
 
@@ -26,7 +27,9 @@ const googleKey = computed(() => {
       <div style="font-style: italic;">Loading...</div>
     </template>
     <template v-else>
-      <div class="pickup-requests">Pickup Requests</div>
+      <div class="pickup-requests">
+        <PickupRequests/>
+      </div>
       <div class="the-map">
         <Suspense>
           <template #default>
@@ -46,12 +49,14 @@ const googleKey = computed(() => {
 .root {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: white;
-  background-color: #303f4c;
-  width: 100vw;
-  height: 100vh;
+  background-color: #425565;
   padding: 0px;
   margin: 0px;
-  position: relative;
+  top: 1em;
+  left: 1em;
+  right: 1em;
+  bottom: 1em;
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -60,11 +65,17 @@ const googleKey = computed(() => {
 
 .pickup-requests {
   min-width: min(20vw, 20em);
+  max-width: 20em;
+  overflow: auto;
+  position: relative;
+  height: 100%;
 }
 
 .the-map {
   flex-grow: 1;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .drivers {

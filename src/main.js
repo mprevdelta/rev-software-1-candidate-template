@@ -3,35 +3,19 @@ import { createStore } from 'vuex'
 
 import './style.css'
 import App from './App.vue'
-import Api from './plugins/api'
+import Loading from './components/Loading.vue'
+
+import $api from './plugins/api'
+import appStore from './plugins/app-store'
 
 async function main() {
     const app = createApp(App)
 
-    app.provide('$api', Api)
+    app.provide('$api', $api)
 
-    const $store = createStore({
-        state: {
-            selectedDriver: null,
-            selectedPickupRequest: null
-        },
-        mutations: {
-            setSelectedDriver(state, newVal) {
-                state.selectedDriver = newVal
-            },
-            setSelectedPickupRequest(state, newVal) {
-                state.selectedPickupRequest = newVal
-            }
-        },
-        actions: {
-            setSelectedDriver({ commit }, newVal) {
-                commit('setSelectedDriver', newVal)
-            },
-            setSelectedPickupRequest({ commit }, newVal) {
-                commit('setSelectedPickupRequest', newVal)
-            }
-        }
-    })
+    app.component('Loading', Loading) 
+
+    const $store = createStore(appStore)
     app.use($store)
     app.provide('$store', $store)
 
