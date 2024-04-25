@@ -9,8 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.6",
+    "axios": "^1.6.8",
     "dotenv-load": "^3.0.0",
-    "vue": "^3.4.21"
+    "swrv": "^1.0.4",
+    "vue": "^3.4.21",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
