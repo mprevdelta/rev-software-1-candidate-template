@@ -52,6 +52,9 @@ watch(props, () => {
     }
 
     marker = new maps.api.AdvancedMarkerElement(options)
+    marker.addListener('gmp-click', () => {
+        $store.dispatch('setSelectedPickupRequest', props.pickupRequest)
+    })
 }, {immediate: true})
 
 onUnmounted(() => {

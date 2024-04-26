@@ -24,7 +24,7 @@ const props = defineProps({
 
 const loader = new Loader({
     apiKey: props.googleKey,
-    version: "weekly",
+    version: "beta",
     libraries: ["places", "drawing"]
 });
 

@@ -14,7 +14,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="o in (requestsWithMetadata || [])" :key="o.key" @click="selectPickupRequest(o.original)">
+                <tr v-for="o in (requestsWithMetadata || [])" :key="o.key" @click="selectPickupRequest(o.original)"
+                    :class="o.class">
                     <td>{{ o.count }}</td>
                     <td>{{ o.ageInDays }}</td>
                     <!-- <td>
@@ -55,13 +56,15 @@ const requestsWithMetadata = computed(() => {
         const createdAt = new Date(pr.createdAt)
         const age = now - createdAt
         const ageInDays = Math.floor(age / (1000 * 60 * 60 * 24));
+        const selected = pr.id === $store.state.selectedPickupRequest?.id
+        const clazz = selected ? ['selected'] : []
 
         return {
             key: pr.id,
-            selected: pr.id === $store.state.selectedPickupRequest?.id,
+            selected,
             original: pr,
             ageInDays,
-            count: pr.count
+            count: pr.count, class: clazz
         }
     })
 })
@@ -101,11 +104,15 @@ tr {
 
 tr:hover {
     background-color: #13688f;
-    ;
 }
 
 td {
     text-align: center;
     cursor: pointer;
+}
+
+tr.selected {
+    text-decoration: underline;
+    background-color: #13688f;
 }
 </style>
